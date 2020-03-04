@@ -12,3 +12,4 @@ I will continue working on it, every help is appreciated
 - [ ] Wrap everything into a curses menu
 - [ ] Write tests
 - [ ] Bugfixing and testing
+- [ ] Smaller Todos found as comments in the code
