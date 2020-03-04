@@ -9,6 +9,6 @@ I will continue working on it, every help is appreciated
 ## TODO
 - [x] Fetch messages
 - [ ] Send messages
-- [ ] Wrap everything a curses menu
+- [ ] Wrap everything into a curses menu
 - [ ] Write tests
 - [ ] Bugfixing and testing
