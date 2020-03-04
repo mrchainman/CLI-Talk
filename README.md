@@ -12,4 +12,5 @@ I will continue working on it, every help is appreciated
 - [ ] Wrap everything into a curses menu
 - [ ] Write tests
 - [ ] Bugfixing and testing
+- [ ] Make code more "pythonic"
 - [ ] Smaller Todos found as comments in the code
