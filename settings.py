@@ -1,4 +1,5 @@
-# Nextcloud settings
-url='https://example.com'
-user='username'
-pw='secretpw'
+# Headers
+headers = {'OCS-APIRequest': 'true',
+           'Content-Type': 'application/json',
+           'Accept': 'application/json'
+          }
