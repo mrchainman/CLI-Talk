@@ -5,3 +5,10 @@
 This program allows you to use Next cloud Talk form the Terminal.
 At the moment it only fetches the conversations and displays the last 3 messages for each.
 I will continue working on it, every help is appreciated
+
+## TODO
+- [x] Fetch messages
+- [ ] Send messages
+- [ ] Wrap everything a curses menu
+- [ ] Write tests
+- [ ] Bugfixing and testing
