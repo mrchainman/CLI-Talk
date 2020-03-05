@@ -4,15 +4,15 @@ import requests
 import json
 import time
 import os
-# try to import the config, else pass, means we run it for the first time
 from settings import *
+# try to import the config, else pass, means we run it for the first time
 try:
     from config import *
 except:
     pass
 
-# Checks if config file is there, else creates it
 def check_config():
+    """Checks if config file is there, else creates it."""
     # Check if config file is there
     try:
         open("config.py",'r')
@@ -30,37 +30,67 @@ def check_config():
         print("We need to restart the app now, sorry ;)")
         exit(0)
 
-# Gets the messages
-def get_data():
-    # Get the users conversations
+def get_conversations():
+    """Get the users conversations."""
+    # API request
     r_conversations = requests.get(f"{url}/room", headers=headers, auth=(user, password))
-    # Load the json response
     m_conversations = (r_conversations.json())
+    # print(m_conversations) #DEBUG CODE
+    # exit(0) #DEBUG CODE
+
     # ITerate through the conversations
-    for i in range(len(m_conversations["ocs"]["data"])):
+    number_of_conversations = range(len(m_conversations["ocs"]["data"]))
+    # print(number_of_conversations) # DEBUG CODE
+    for i in number_of_conversations:
+        # print(i) # DEBUG CODE
         # Get the token
         token_i = (m_conversations["ocs"]["data"][i]["lastMessage"]["token"])
-        # Tet the participants of each chat,TODO: need to hanlde group chats
+        # print(token_i) # DEBUG CODE
+        # Get the participants of each chat,
+        #TODO: need to hanlde group chats
         r_participants = requests.get(f"{url}/room/{token_i}/participants", headers=headers, auth=(user, password))
         m_participants = (r_participants.json())
-        participant_i = (m_participants["ocs"]["data"][1]["displayName"])
-        # TODO: Store tokens and participants in a dictionary for later referencing
-        # Set some parameters for requesting chat messages, limit to 3 to make it fast for testing
-        data_chat = {'lookIntoFuture':0, 'setReadMarker':0, 'limit':3}
-        # Get the messages of the chat
-        r_messages = requests.get(
-            f"{url}/chat/{token_i}",
-            headers=headers, auth=(user, password),
-            params=data_chat)
-        m_messages = (r_messages.json())
-        # Iterate through the messages and print them
-        for i in range(len(m_messages["ocs"]["data"])):
-            # Print participants of chat
-            print(f"{participant_i}\n\n")
-            # Ptint messages themself
-            print(m_messages["ocs"]["data"][i]["message"])
-        # Visual indicator for new chat
-        print("-----------------------------------------\n-----------------------------------------\n-----------------------------------------\n")
-# Send a message to a chat, takes token and msg as arguments
+        try:
+            participant_i = (m_participants["ocs"]["data"][1]["displayName"])
+        except:
+            # Catch public conversations
+            participant_i = "public"
+        # print(participant_i) # DEBUG CODE
+        dict_token_participant.update({token_i : participant_i})
+    # for k, v in dict_token_participant.items(): # DEBUG CODE
+    #     print(k) # DEBUG CODE
+    #     print(v) # DEBUG CODE
+    # exit(0) # DEBUG CODE
+    print("Youre Conversations:")
+    for k, v in dict_token_participant.items():
+        print(v)
+
+
+def get_messages(conversation):
+    conversation = conversation
+    """Get the messages of a specific conversation. Takes the Displayname of the user in the conversation as an argument"""
+    for key, value in dict_token_participant.items():
+        if value == conversation:
+            token = key
+            print(token) # DEBUG CODE
+    else:
+        print(f"{conversation} does not exist as a conversation!")
+
+    # Get the messages of the chat
+    r_messages = requests.get(
+        f"{url}/chat/{token_i}",
+        headers=headers, auth=(user, password),
+        params=data_chat)
+    m_messages = (r_messages.json())
+    # Iterate through the messages and print them
+    for i in range(len(m_messages["ocs"]["data"])):
+        # Print participants of chat
+        print(f"{participant_i}\n\n")
+        # Ptint messages themself
+        print(m_messages["ocs"]["data"][i]["message"])
+
 def send_msg(token, msg):
-    send = requests.post(f"{url}/chat/{token}", headers=headers, auth=(user, password), params={'message':msg})
+    """Send a message to a chat, takes token and msg as arguments."""
+    send = requests.post(f"{url}/chat/{token}",
+                         headers=headers, auth=(user, password),
+                         params={'message':msg})
