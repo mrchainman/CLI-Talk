@@ -10,6 +10,7 @@ I will continue working on it, every help is appreciated
 - [x] Fetch messages
 - [x] Send messages
 - [ ] Smaller Todos found as comments in the code
+- [ ] Automatically fetch new conversations and messages periodically
 - [ ] Wrap everything into a curses menu
 - [ ] Write tests
 - [ ] Bugfixing and testing
