@@ -11,10 +11,13 @@ if __name__ == "__main__":
         if conversation == "quit":
             print("Exiting ...")
             break
-        print("Loading messages ...")
-        get_messages(conversation)
         while True:
-            msg = input("Send message (type 'quit' to exit) : ")
+            print("Loading messages ...")
+            get_messages(conversation)
+            msg = input("Send message (type 'quit' to exit, 'load' to reload the messages) : ")
             if msg == "quit":
                 break
-            send_msg(conversation, msg)
+            elif msg == "load":
+                continue
+            else:
+                send_msg(conversation, msg)
