@@ -27,7 +27,7 @@ def check_config():
         with open ("config.py",'a') as f:
             f.write(f"#!/usr/bin/python3\nurl = \"{url}/ocs/v2.php/apps/spreed/api/v1\"\nuser = \"{user}\"\npassword = \"{password}\"")
         # TODO: Find way to import the configs without restarting
-        print("We need to restart the app now, sorry ;)")
+        print("We need to restart the app now, sorry. Just rerunn it and everything will be fine :D")
         exit(0)
 
 def get_conversations():
@@ -61,10 +61,11 @@ def get_conversations():
     #     print(k) # DEBUG CODE
     #     print(v) # DEBUG CODE
     # exit(0) # DEBUG CODE
+
+def list_conversations():
     print("Youre Conversations:")
     for k, v in dict_token_participant.items():
         print(v)
-
 
 def get_messages(conversation):
     """Get the messages of a specific conversation. Takes the Displayname of the user in the conversation as an argument"""
@@ -85,8 +86,12 @@ def get_messages(conversation):
         # Ptint messages themself
         print(m_messages["ocs"]["data"][i]["message"])
 
-def send_msg(token, msg):
+def send_msg(conversation, msg):
     """Send a message to a chat, takes token and msg as arguments."""
+    for key, value in dict_token_participant.items():
+        if value == conversation:
+            token = key
+            break
     send = requests.post(f"{url}/chat/{token}",
                          headers=headers, auth=(user, password),
                          params={'message':msg})
