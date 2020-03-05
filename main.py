@@ -1,8 +1,8 @@
 #!/usr/bin/python3
+import os
 from functions import *
 if __name__ == "__main__":
     check_config()
-    print("Fetching your conversations ...")
     get_conversations()
     # TODO: This nested while loop is ugly, find a better way to handle it
     while True:
@@ -18,6 +18,7 @@ if __name__ == "__main__":
             if msg == "q":
                 break
             elif msg == "l":
+                os.remove("messages.json")
                 continue
             else:
                 send_msg(conversation, msg)

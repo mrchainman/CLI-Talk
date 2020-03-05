@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # import some modules
 import requests
-import json
 import time
 import os
 from variables_and_stuff import *
@@ -32,35 +31,35 @@ def check_config():
 
 def get_conversations():
     """Get the users conversations."""
-    # API request
-    r_conversations = requests.get(f"{url}/room", headers=headers, auth=(user, password))
-    m_conversations = (r_conversations.json())
-    # print(m_conversations) #DEBUG CODE
-    # exit(0) #DEBUG CODE
+    # Check if we have a cache file
+    try:
+        with open('conversations.json','r') as lf:
+            m_conversations = json.load(lf)
+    except:
+        # API request
+        print("Fetching your conversations ...")
+        r_conversations = requests.get(f"{url}/room", headers=headers, auth=(user, password))
+        m_conversations = (r_conversations.json())
+        with open('conversations.json','w') as df:
+            json.dump(m_conversations, df)
 
-    # ITerate through the conversations
-    number_of_conversations = range(len(m_conversations["ocs"]["data"]))
-    # print(number_of_conversations) # DEBUG CODE
-    for i in number_of_conversations:
-        # print(i) # DEBUG CODE
-        # Get the token
-        token_i = (m_conversations["ocs"]["data"][i]["lastMessage"]["token"])
-        # print(token_i) # DEBUG CODE
-        # Get the participants of each chat,
-        #TODO: need to hanlde group chats
-        r_participants = requests.get(f"{url}/room/{token_i}/participants", headers=headers, auth=(user, password))
-        m_participants = (r_participants.json())
-        try:
-            participant_i = (m_participants["ocs"]["data"][1]["displayName"])
-        except:
-            # TODO: We need to catch public conversations here, otherwise we get a "Index out of range" error, needs to be fixed.
-            participant_i = "public"
-        # print(participant_i) # DEBUG CODE
-        dict_token_participant.update({token_i : participant_i})
-    # for k, v in dict_token_participant.items(): # DEBUG CODE
-    #     print(k) # DEBUG CODE
-    #     print(v) # DEBUG CODE
-    # exit(0) # DEBUG CODE
+    if bool(dict_token_participant) == "False":
+        print("Creating dictionary ...")
+        number_of_conversations = range(len(m_conversations["ocs"]["data"]))
+        for i in number_of_conversations:
+            token_i = (m_conversations["ocs"]["data"][i]["lastMessage"]["token"])
+            #TODO: need to hanlde group chats
+            r_participants = requests.get(f"{url}/room/{token_i}/participants", headers=headers, auth=(user, password))
+            m_participants = (r_participants.json())
+
+            try:
+                participant_i = (m_participants["ocs"]["data"][1]["displayName"])
+            except:
+                # TODO: We need to catch public conversations here, otherwise we get a "Index out of range" error, needs to be fixed.
+                participant_i = "public"
+            dict_token_participant.update({token_i : participant_i})
+        with open('dictionary.json','w') as df:
+            json.dump(dict_token_participant, df)
 
 def list_conversations():
     """List the users conversations."""
@@ -81,8 +80,17 @@ def get_messages(conversation):
         print(f"{conversation} does not exist as a conversation!")
 
     # Get the messages of the chat
-    r_messages = requests.get( f"{url}/chat/{token}", headers=headers, auth=(user, password), params=data_chat)
-    m_messages = (r_messages.json())
+    try:
+        with open('messages.json','r') as lf:
+            m_messages = json.load(lf)
+    except:
+        # API request
+        print("Fetching new messages ...")
+        r_messages = requests.get( f"{url}/chat/{token}", headers=headers, auth=(user, password), params=data_chat)
+        m_messages = (r_messages.json())
+        with open('messages.json','w') as df:
+            json.dump(m_messages, df)
+
     print(f"{conversation}:\n")
     number_of_messages = range(len(m_messages["ocs"]["data"]))
     # Iterate through the messages and print them
