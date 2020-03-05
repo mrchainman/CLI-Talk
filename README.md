@@ -15,3 +15,9 @@ I will continue working on it, every help is appreciated
 - [ ] Write tests
 - [ ] Bugfixing and testing
 - [ ] Make code more "pythonic"
+
+## Usage
+Just run './main.py' in the directory you cloned the code into.
+The first time you will need to configure it through the wizard, the everything will be fetched automatically the next time you run it.
+
+Have fun :D
