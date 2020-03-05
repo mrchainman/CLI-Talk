@@ -64,6 +64,7 @@ def get_conversations():
 
 def list_conversations():
     print("Youre Conversations:")
+    # TODO: We need to sort the conversations by date of last message
     for k, v in dict_token_participant.items():
         print(v)
 
@@ -81,13 +82,14 @@ def get_messages(conversation):
     r_messages = requests.get( f"{url}/chat/{token}", headers=headers, auth=(user, password), params=data_chat)
     m_messages = (r_messages.json())
     print(f"{conversation}\n\n")
+    number_of_messages = range(len(m_messages["ocs"]["data"]))
     # Iterate through the messages and print them
-    for i in range(len(m_messages["ocs"]["data"])):
+    for i in reversed(number_of_messages):
         # Ptint messages themself
         print(m_messages["ocs"]["data"][i]["message"])
 
 def send_msg(conversation, msg):
-    """Send a message to a chat, takes token and msg as arguments."""
+    """Send a message to a chat, takes conversation and msg as arguments."""
     for key, value in dict_token_participant.items():
         if value == conversation:
             token = key
