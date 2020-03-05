@@ -4,7 +4,7 @@ import requests
 import json
 import time
 import os
-from settings import *
+from variables_and_stuff import *
 # try to import the config, else pass, means we run it for the first time
 try:
     from config import *
