@@ -11,6 +11,7 @@ if __name__ == "__main__":
         if conversation == "quit":
             print("Exiting ...")
             break
+        print("Loading messages ...")
         get_messages(conversation)
         while True:
             msg = input("Send message (type 'quit' to exit) : ")
