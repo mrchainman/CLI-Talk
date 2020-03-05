@@ -4,13 +4,16 @@ if __name__ == "__main__":
     check_config()
     print("Fetching your conversations ...")
     get_conversations()
-    list_conversations()
-    conversation = input("Please enter the name of a conversation: ")
-    get_messages(conversation)
+    # TODO: This nested while loop is ugly, find a better way to handle it
     while True:
-        msg = input("Send: ")
-        if msg == "quit":
-            print("Bye")
-            # TODO: How do we get back tu list_conversations ???
-            exit(0)
-        send_msg(conversation, msg)
+        list_conversations()
+        conversation = input("Please enter the name of a conversation (type 'quit' to exit) : ")
+        if conversation == "quit":
+            print("Exiting ...")
+            break
+        get_messages(conversation)
+        while True:
+            msg = input("Send message (type 'quit' to exit) : ")
+            if msg == "quit":
+                break
+            send_msg(conversation, msg)

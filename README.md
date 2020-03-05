@@ -9,8 +9,8 @@ I will continue working on it, every help is appreciated
 ## TODO
 - [x] Fetch messages
 - [x] Send messages
+- [ ] Smaller Todos found as comments in the code
 - [ ] Wrap everything into a curses menu
 - [ ] Write tests
 - [ ] Bugfixing and testing
 - [ ] Make code more "pythonic"
-- [ ] Smaller Todos found as comments in the code
