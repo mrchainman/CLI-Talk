@@ -10,6 +10,7 @@ I will continue working on it, every help is appreciated.
 - [ ] Smaller Todos found as comments in the code
 - [x] Fetch messages
 - [x] Send messages
+- [ ] Save the participant-token dictionary to a file to speed up program start times
 - [ ] Automatically fetch new conversations and messages periodically
 - [ ] Wrap everything into a curses menu
 - [ ] Write tests
