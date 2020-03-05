@@ -3,7 +3,9 @@
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
 This program allows you to use Next cloud Talk form the Terminal.
+
 At the moment it only has a text interface, Curses is comming :D
+
 I will continue working on it, every help is appreciated.
 
 ## TODO
