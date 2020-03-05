@@ -53,7 +53,7 @@ def get_conversations():
         try:
             participant_i = (m_participants["ocs"]["data"][1]["displayName"])
         except:
-            # Catch public conversations
+            # TODO: We need to catch public conversations here, otherwise we get a "Index out of range" error, needs to be fixed.
             participant_i = "public"
         # print(participant_i) # DEBUG CODE
         dict_token_participant.update({token_i : participant_i})
@@ -63,6 +63,7 @@ def get_conversations():
     # exit(0) # DEBUG CODE
 
 def list_conversations():
+    """List the users conversations."""
     print("Youre Conversations:")
     # TODO: We need to sort the conversations by date of last message
     for k, v in dict_token_participant.items():
