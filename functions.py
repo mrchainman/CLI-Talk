@@ -81,14 +81,14 @@ def get_messages(conversation):
 
     # Get the messages of the chat
     try:
-        with open('messages.json','r') as lf:
+        with open(f"{conversation}.json",'r') as lf:
             m_messages = json.load(lf)
     except:
         # API request
-        print("Fetching new messages ...")
+        print(f"Fetching new messages for {conversation}...")
         r_messages = requests.get( f"{url}/chat/{token}", headers=headers, auth=(user, password), params=data_chat)
         m_messages = (r_messages.json())
-        with open('messages.json','w') as df:
+        with open(f"{conversation}.json",'w') as df:
             json.dump(m_messages, df)
 
     print(f"{conversation}:\n")

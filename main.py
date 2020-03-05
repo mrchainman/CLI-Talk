@@ -12,13 +12,12 @@ if __name__ == "__main__":
             print("Exiting ...")
             break
         while True:
-            print("Loading messages ...")
             get_messages(conversation)
             msg = input("Send message (type 'q' to go back, 'l' to reload the messages) : ")
             if msg == "q":
                 break
             elif msg == "l":
-                os.remove("messages.json")
+                # Currently broken
                 continue
             else:
                 send_msg(conversation, msg)
