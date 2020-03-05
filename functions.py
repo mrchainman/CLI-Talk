@@ -67,25 +67,21 @@ def get_conversations():
 
 
 def get_messages(conversation):
-    conversation = conversation
     """Get the messages of a specific conversation. Takes the Displayname of the user in the conversation as an argument"""
     for key, value in dict_token_participant.items():
         if value == conversation:
             token = key
-            print(token) # DEBUG CODE
+            break
+            # print(token) # DEBUG CODE
     else:
         print(f"{conversation} does not exist as a conversation!")
 
     # Get the messages of the chat
-    r_messages = requests.get(
-        f"{url}/chat/{token_i}",
-        headers=headers, auth=(user, password),
-        params=data_chat)
+    r_messages = requests.get( f"{url}/chat/{token}", headers=headers, auth=(user, password), params=data_chat)
     m_messages = (r_messages.json())
+    print(f"{conversation}\n\n")
     # Iterate through the messages and print them
     for i in range(len(m_messages["ocs"]["data"])):
-        # Print participants of chat
-        print(f"{participant_i}\n\n")
         # Ptint messages themself
         print(m_messages["ocs"]["data"][i]["message"])
 
