@@ -69,15 +69,16 @@ def get_conversations(debug="False"):
     if debug == "True":
         return m_conversations
 
-def list_conversations(debug="False"):
+def list_conversations():
     """List the users conversations."""
     print("Youre Conversations:")
     # TODO: We need to sort the conversations by date of last message
+    list_of_conversations = []
     for k, v in dict_token_participant.items():
         print(v)
+        list_of_conversations.append(v)
     print("\n")
-    if debug == "True":
-        return dict_token_participant
+    return list_of_conversations
 
 def get_messages(conversation):
     """Get the messages of a specific conversation. Takes the Displayname of the user in the conversation as an argument"""

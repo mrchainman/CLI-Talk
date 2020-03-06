@@ -6,12 +6,13 @@ if __name__ == "__main__":
     # TODO: This nested while loop is ugly, find a better way to handle it
     while True:
         os.system('clear')
-        list_conversations()
-        # TODO: Implement autocompletion
-        conversation = input("Please enter the name of a conversation (type 'q' to exit) : ")
-        if conversation == "q":
+        printed_conversations = list_conversations()
+        choice = input("Please enter the name of a conversation (type 'q' to exit) : ")
+        if choice == "q":
             print("Exiting ...")
             break
+        filter_input = list(filter(lambda x: x.startswith(choice), printed_conversations))
+        conversation = filter_input[0]
         while True:
             os.system('clear')
             get_messages(conversation)
