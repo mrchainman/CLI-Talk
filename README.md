@@ -24,4 +24,6 @@ I will continue working on it, every help is appreciated.
 Just run './main.py' from the bin folder.
 The first time you will need to configure it through the wizard, then everything will be fetched automatically the next time you run it.
 
+To force recreating cache files, you can just delete the corresponding json file in the json folder.
+
 Have fun :D
