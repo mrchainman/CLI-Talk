@@ -10,12 +10,12 @@ from pathlib import Path
 
 
 # Currently breaks other tests, as direct import is not possible
-# def test_create_config():
-#     try:
-#         import config
-#     except:
-#         with open ("../bin/config.py",'a') as f:
-#             f.write(f"#!/usr/bin/python3\nurl = \"https://cloud.example.com/ocs/v2.php/apps/spreed/api/v1\"\nuser = \"johndoe\"\npassword = \"s3cr3t\"")
+def test_create_config():
+    try:
+        import config
+    except:
+        with open ("../bin/config.py",'a') as f:
+            f.write(f"#!/usr/bin/python3\nurl = \"https://cloud.example.com/ocs/v2.php/apps/spreed/api/v1\"\nuser = \"johndoe\"\npassword = \"s3cr3t\"")
 
 def test_import_config():
     configfile = Path("../bin/config.py")
