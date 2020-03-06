@@ -17,8 +17,9 @@ from pathlib import Path
 #         with open ("../bin/config.py",'a') as f:
 #             f.write(f"#!/usr/bin/python3\nurl = \"https://cloud.example.com/ocs/v2.php/apps/spreed/api/v1\"\nuser = \"johndoe\"\npassword = \"s3cr3t\"")
 
+configfile = Path("../bin/config.py")
+
 def test_import_config():
-    configfile = Path("../bin/config.py")
     if configfile.is_file():
         import config
         assert len(url) != 0
@@ -26,4 +27,6 @@ def test_import_config():
         assert len(password) != 0
 
 def test_get_conversations():
-    assert get_conversations(debug="True") != 0
+    if configfile.is_file():
+        import config
+        assert get_conversations(debug="True") != 0
