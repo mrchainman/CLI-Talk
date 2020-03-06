@@ -26,6 +26,6 @@ run 'pip install -r requirements.txt' to install the needed packages (at the mom
 Just run './main.py' from the bin folder.
 The first time you will need to configure it through the wizard, then everything will be fetched automatically the next time you run it.
 
-To force recreating cache files, you can just delete the corresponding json file in the json folder.
+To force recreating cache files, you can just delete the corresponding json file in the cache folder.
 
 Have fun :D
