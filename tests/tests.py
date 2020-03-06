@@ -6,6 +6,8 @@
 import sys
 sys.path.append('../bin')
 from main import *
+from pathlib import Path
+
 
 # Currently breaks other tests, as direct import is not possible
 # def test_create_config():
@@ -16,11 +18,12 @@ from main import *
 #             f.write(f"#!/usr/bin/python3\nurl = \"https://cloud.example.com/ocs/v2.php/apps/spreed/api/v1\"\nuser = \"johndoe\"\npassword = \"s3cr3t\"")
 
 def test_import_config():
-    import config
-    assert len(url) != 0
-    assert len(user) != 0
-    assert len(password) != 0
+    configfile = Path("../bin/config.py")
+    if configfile.is_file():
+        import config
+        assert len(url) != 0
+        assert len(user) != 0
+        assert len(password) != 0
 
-# def test_get_conversations():
-#     get_conversations()
-#     assert r_conversations != 0
+def test_get_conversations():
+    assert get_conversations(debug="True") != 0

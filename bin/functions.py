@@ -29,7 +29,7 @@ def check_config():
         print("We need to restart the app now, sorry. Just rerunn it and everything will be fine :D")
         exit(0)
 
-def get_conversations():
+def get_conversations(debug="False"):
     """Get the users conversations."""
     # Check if we have a cache file
     try:
@@ -43,6 +43,8 @@ def get_conversations():
         with open(f"{jsondir}/conversations.json",'w') as df:
             json.dump(m_conversations, df)
 
+    if debug == "True":
+        return m_conversations
     # Check if the dictionary was populated by a cache file, else we create it and write it to a cache file
     if bool(dict_token_participant) == "False":
         print("Creating dictionary ...")
