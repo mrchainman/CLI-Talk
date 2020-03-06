@@ -16,7 +16,7 @@ I will continue working on it, every help is appreciated.
 - [x] Create directories for different files to keep things organised
 - [ ] Automatically fetch new conversations and messages periodically
 - [ ] Wrap everything into a curses menu
-- [ ] Write tests
+- [ ] Write more tests
 - [ ] Bugfixing and testing
 - [ ] Make code more "pythonic"
 
