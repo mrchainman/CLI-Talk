@@ -10,11 +10,13 @@ try:
 except:
     pass
 
-def check_config():
+def check_config(debug="False"):
     """Checks if config file is there, else creates it."""
     # Check if config file is there
     try:
         open("config.py",'r')
+        if debug == "True":
+            return 'Found config'
     # Else we create it
     except:
         print("No config file found, let's create it!")
@@ -27,6 +29,8 @@ def check_config():
             f.write(f"#!/usr/bin/python3\nurl = \"{url}/ocs/v2.php/apps/spreed/api/v1\"\nuser = \"{user}\"\npassword = \"{password}\"")
         # TODO: Find way to import the configs without restarting
         print("We need to restart the app now, sorry. Just rerunn it and everything will be fine :D")
+        if debug == "True":
+            return 'Needed to create config'
         exit(0)
 
 def get_conversations(debug="False"):
@@ -43,10 +47,8 @@ def get_conversations(debug="False"):
         with open(f"{jsondir}/conversations.json",'w') as df:
             json.dump(m_conversations, df)
 
-    if debug == "True":
-        return m_conversations
     # Check if the dictionary was populated by a cache file, else we create it and write it to a cache file
-    if bool(dict_token_participant) == "False":
+    if bool(dict_token_participant) == False:
         print("Creating dictionary ...")
         number_of_conversations = range(len(m_conversations["ocs"]["data"]))
         for i in number_of_conversations:
@@ -63,6 +65,9 @@ def get_conversations(debug="False"):
             dict_token_participant.update({token_i : participant_i})
         with open(f"{jsondir}/dictionary.json",'w') as df:
             json.dump(dict_token_participant, df)
+
+    if debug == "True":
+        return m_conversations
 
 def list_conversations():
     """List the users conversations."""
