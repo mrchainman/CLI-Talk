@@ -36,13 +36,14 @@ def get_conversations():
         with open(f"{jsondir}/conversations.json",'r') as lf:
             m_conversations = json.load(lf)
     except:
-        # API request
+        # Else we fetch the conversations and create the cache file
         print("Fetching your conversations ...")
         r_conversations = requests.get(f"{url}/room", headers=headers, auth=(user, password))
         m_conversations = (r_conversations.json())
         with open(f"{jsondir}/conversations.json",'w') as df:
             json.dump(m_conversations, df)
 
+    # Check if the dictionary was populated by a cache file, else we create it and write it to a cache file
     if bool(dict_token_participant) == "False":
         print("Creating dictionary ...")
         number_of_conversations = range(len(m_conversations["ocs"]["data"]))
@@ -52,10 +53,10 @@ def get_conversations():
             r_participants = requests.get(f"{url}/room/{token_i}/participants", headers=headers, auth=(user, password))
             m_participants = (r_participants.json())
 
+            # TODO: We need to catch public conversations here, otherwise we get a "Index out of range" error, needs to be fixed.
             try:
                 participant_i = (m_participants["ocs"]["data"][1]["displayName"])
             except:
-                # TODO: We need to catch public conversations here, otherwise we get a "Index out of range" error, needs to be fixed.
                 participant_i = "public"
             dict_token_participant.update({token_i : participant_i})
         with open(f"{jsondir}/dictionary.json",'w') as df:
@@ -71,20 +72,21 @@ def list_conversations():
 
 def get_messages(conversation):
     """Get the messages of a specific conversation. Takes the Displayname of the user in the conversation as an argument"""
+    # Find the token for a conversation in the dictionary
     for key, value in dict_token_participant.items():
         if value == conversation:
             token = key
             break
-            # print(token) # DEBUG CODE
+    # Catch error if the conversation does not exist
     else:
         print(f"{conversation} does not exist as a conversation!")
 
-    # Get the messages of the chat
+    # Try to read the messages from a cache file
     try:
         with open(f"{jsondir}/{conversation}.json",'r') as lf:
             m_messages = json.load(lf)
+    # If there is no cache file, we fetch the messages and create the cache file
     except:
-        # API request
         print(f"Fetching new messages for {conversation}...")
         r_messages = requests.get( f"{url}/chat/{token}", headers=headers, auth=(user, password), params=data_chat)
         m_messages = (r_messages.json())
@@ -93,14 +95,13 @@ def get_messages(conversation):
 
     print(f"{conversation}:\n")
     number_of_messages = range(len(m_messages["ocs"]["data"]))
-    # Iterate through the messages and print them
     for i in reversed(number_of_messages):
-        # Ptint messages themself
         print(m_messages["ocs"]["data"][i]["message"])
     print("\n")
 
 def send_msg(conversation, msg):
     """Send a message to a chat, takes conversation and msg as arguments."""
+    # Get the token for a conversation from the dictionary
     for key, value in dict_token_participant.items():
         if value == conversation:
             token = key

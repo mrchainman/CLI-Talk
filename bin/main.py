@@ -16,7 +16,7 @@ if __name__ == "__main__":
             if msg == "q":
                 break
             elif msg == "l":
-                # Currently broken
+                # Remove cache file to force refetching of messages
                 os.remove(f"{jsondir}/{conversation}.json")
                 continue
             else:
