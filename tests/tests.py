@@ -26,7 +26,12 @@ def test_import_config():
         assert len(user) != 0
         assert len(password) != 0
 
-def test_get_conversations():
+def test_conversations_not_empty():
     if configfile.is_file():
         import config
         assert get_conversations(debug="True") != 0
+
+def test_dictionary_not_empty():
+    if configfile.is_file():
+        import config
+        assert list_conversations(debug="True") != 0
