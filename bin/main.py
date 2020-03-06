@@ -22,3 +22,5 @@ if __name__ == "__main__":
                 continue
             else:
                 send_msg(conversation, msg)
+                os.remove(f"{jsondir}/{conversation}.json")
+                continue
