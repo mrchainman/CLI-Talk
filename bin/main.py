@@ -5,6 +5,7 @@ if __name__ == "__main__":
     get_conversations()
     # TODO: This nested while loop is ugly, find a better way to handle it
     while True:
+        os.system('clear')
         list_conversations()
         # TODO: Implement autocompletion
         conversation = input("Please enter the name of a conversation (type 'q' to exit) : ")
@@ -12,6 +13,7 @@ if __name__ == "__main__":
             print("Exiting ...")
             break
         while True:
+            os.system('clear')
             get_messages(conversation)
             msg = input("Send message (type 'q' to go back, 'l' to reload the messages) : ")
             if msg == "q":
