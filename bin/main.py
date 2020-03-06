@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-import os
 from functions import *
 if __name__ == "__main__":
     check_config()
@@ -18,6 +17,7 @@ if __name__ == "__main__":
                 break
             elif msg == "l":
                 # Currently broken
+                os.remove(f"{jsondir}/{conversation}.json")
                 continue
             else:
                 send_msg(conversation, msg)
