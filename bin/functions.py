@@ -61,7 +61,7 @@ def get_conversations(debug="False"):
             try:
                 participant_i = (m_participants["ocs"]["data"][1]["displayName"])
             except:
-                participant_i = "public"
+                participant_i = f"Public Conversation {i}"
             dict_token_participant.update({token_i : participant_i})
         with open(f"{jsondir}/dictionary.json",'w') as df:
             json.dump(dict_token_participant, df)

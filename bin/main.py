@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from functions import *
 if __name__ == "__main__":
+    os.system('clear')
     check_config()
     get_conversations()
     # TODO: This nested while loop is ugly, find a better way to handle it
