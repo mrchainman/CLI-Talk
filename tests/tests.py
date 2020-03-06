@@ -20,3 +20,6 @@ def test_import_config():
     assert len(url) != 0
     assert len(user) != 0
     assert len(password) != 0
+
+def test_get_conversations():
+    assert room in r_conversations
