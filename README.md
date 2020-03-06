@@ -21,7 +21,7 @@ I will continue working on it, every help is appreciated.
 - [ ] Make code more "pythonic"
 
 ## Usage
-Just run './main.py' in the directory you cloned the code into.
+Just run './main.py' from the bin folder.
 The first time you will need to configure it through the wizard, then everything will be fetched automatically the next time you run it.
 
 Have fun :D
