@@ -13,7 +13,7 @@ I will continue working on it, every help is appreciated.
 - [x] Fetch messages
 - [x] Send messages
 - [x] Save the participant-token dictionary to a file to speed up program start times
-- [ ] Create directories for different files to keep things organised
+- [x] Create directories for different files to keep things organised
 - [ ] Automatically fetch new conversations and messages periodically
 - [ ] Wrap everything into a curses menu
 - [ ] Write tests
