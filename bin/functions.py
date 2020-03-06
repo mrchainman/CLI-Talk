@@ -33,14 +33,14 @@ def get_conversations():
     """Get the users conversations."""
     # Check if we have a cache file
     try:
-        with open('conversations.json','r') as lf:
+        with open(f"{jsondir}/conversations.json",'r') as lf:
             m_conversations = json.load(lf)
     except:
         # API request
         print("Fetching your conversations ...")
         r_conversations = requests.get(f"{url}/room", headers=headers, auth=(user, password))
         m_conversations = (r_conversations.json())
-        with open('conversations.json','w') as df:
+        with open(f"{jsondir}/conversations.json",'w') as df:
             json.dump(m_conversations, df)
 
     if bool(dict_token_participant) == "False":
@@ -58,7 +58,7 @@ def get_conversations():
                 # TODO: We need to catch public conversations here, otherwise we get a "Index out of range" error, needs to be fixed.
                 participant_i = "public"
             dict_token_participant.update({token_i : participant_i})
-        with open('dictionary.json','w') as df:
+        with open(f"{jsondir}/dictionary.json",'w') as df:
             json.dump(dict_token_participant, df)
 
 def list_conversations():
@@ -81,14 +81,14 @@ def get_messages(conversation):
 
     # Get the messages of the chat
     try:
-        with open(f"{conversation}.json",'r') as lf:
+        with open(f"{jsondir}/{conversation}.json",'r') as lf:
             m_messages = json.load(lf)
     except:
         # API request
         print(f"Fetching new messages for {conversation}...")
         r_messages = requests.get( f"{url}/chat/{token}", headers=headers, auth=(user, password), params=data_chat)
         m_messages = (r_messages.json())
-        with open(f"{conversation}.json",'w') as df:
+        with open(f"{jsondir}/{conversation}.json",'w') as df:
             json.dump(m_messages, df)
 
     print(f"{conversation}:\n")
