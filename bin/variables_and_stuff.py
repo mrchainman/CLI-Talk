@@ -9,6 +9,7 @@ headers = {'OCS-APIRequest': 'true',
 data_chat = {'lookIntoFuture':0, 'setReadMarker':0, 'limit':3}
 jsondir = "../json"
 # Try to load the dictionary from the json file, else we create an empty dictionary
+# TODO: There will be a problem, if to conversations have the same participant name, we have to handle that
 try:
     with open(f"{jsondir}/dictionary.json",'r') as lf:
         dict_token_participant = json.load(lf)
