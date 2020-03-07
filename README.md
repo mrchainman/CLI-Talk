@@ -15,6 +15,9 @@ I will continue working on it, every help is appreciated.
 - [x] Save the participant-token dictionary to a file to speed up program start times
 - [x] Create directories for different files to keep things organised
 - [ ] Automatically fetch new conversations and messages periodically
+- [ ] We do alot of deleting and recreating cache files, there needs to be a more efficient way
+
+## Nice to have
 - [ ] Wrap everything into a curses menu
 - [ ] Write more tests
 - [ ] Bugfixing and testing
