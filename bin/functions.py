@@ -153,3 +153,16 @@ def send_msg(conversation, msg):
     send = requests.post(f"{url}/chat/{token}",
                          headers=headers, auth=(user, password),
                          params={'message':msg})
+
+def autofetch_messages():
+    """
+    WIP: Autofetch messages periodically
+
+    This function will automatically refetch messages in the background, it is not yet ready.
+    """
+    for key, value in dict_token_participant.items():
+        print(f"Polling token {key} conversation {value}")
+        r_autofetch = requests.get( f"{url}/chat/{key}", headers=headers, auth=(user, password), params=data_chat)
+        m_autofetch = (r_autofetch.json())
+        with open(f"{jsondir}/{value}.json",'w') as df:
+            json.dump(m_autofetch, df)
