@@ -8,7 +8,14 @@ except:
     pass
 
 def check_config(debug="False"):
-    """Checks if config file is there, else creates it."""
+    """
+    Checks if config file is there, else creates it.
+
+    The configfile is a .py file which gets imported as a module.
+    If it cant be found, it will be created by getting the users input and storing those values in the file.
+    The values are: url, user, password.
+    By passing debug="True" to the function, it will return wheter the config file was found or needed to be created
+    """
     # Check if config file is there
     try:
         open("config.py",'r')
@@ -31,7 +38,16 @@ def check_config(debug="False"):
         exit(0)
 
 def get_conversations(debug="False"):
-    """Get the users conversations."""
+    """
+    Get the users conversations.
+
+    Tries to load the conversations list from a json file (cache).
+    If the file cannot be found it fetches the conversations through the api and dumps them to a file.
+    It will also check if there is a dictionary dict_token_participant stored in a json file.
+    This dictionary contains the tokens of conversations as keys and the Displayname as a value.
+    If the file does not exist, it creates the dictionary through the api and dumps it to a file.
+    If debug="True" is passed as an argument, it returns the conversations in json format.
+    """
     # Check if we have a cache file
     try:
         with open(f"{jsondir}/conversations.json",'r') as lf:
@@ -69,7 +85,12 @@ def get_conversations(debug="False"):
         return m_conversations
 
 def list_conversations():
-    """List the users conversations."""
+    """
+    List the users conversations.
+
+    Creates an empty list called list_of_conversations, than populates it with the tokens and participants from the dict_token_participant dictionary.
+    The function returns the list.
+    """
     print("Youre Conversations:")
     # TODO: We need to sort the conversations by date of last message
     list_of_conversations = []
@@ -80,7 +101,14 @@ def list_conversations():
     return list_of_conversations
 
 def get_messages(conversation):
-    """Get the messages of a specific conversation. Takes the Displayname of the user in the conversation as an argument"""
+    """
+    Get the messages of a specific conversation.
+
+    The function takes the Displayname of the user in the conversation as an argument.
+    It than looks up the corresponding token for the conversation.
+    It checkes wheter a file containing the messages already exists, else it fetches them through the api.
+    In the end they are printed in reversed order.
+    """
     # Find the token for a conversation in the dictionary
     for key, value in dict_token_participant.items():
         if value == conversation:
@@ -110,7 +138,12 @@ def get_messages(conversation):
     print("\n")
 
 def send_msg(conversation, msg):
-    """Send a message to a chat, takes conversation and msg as arguments."""
+    """
+    Send a message to a chat.
+
+    The funciton takes the conversation and the message as arguments.
+    It looks up the token for the conversation in the dictionary dict_token_participant and send the message through the api.
+    """
     # Get the token for a conversation from the dictionary
     for key, value in dict_token_participant.items():
         if value == conversation:
