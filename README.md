@@ -21,7 +21,9 @@ I will continue working on it, every help is appreciated.
 - [ ] Make code more "pythonic"
 
 ## Usage
-run 'pip install -r requirements.txt' to install the needed packages (at the moment there is only 1)
+If you want to just use the program and not work on it, please download the v1.0-Beta Tag, as the master branch could have bugs while I implement new features.
+
+Run 'pip install -r requirements.txt' to install the needed packages (at the moment there is only 1)
 
 Just run './main.py' from the bin folder.
 The first time you will need to configure it through the wizard, then everything will be fetched automatically the next time you run it.
