@@ -37,4 +37,4 @@ def test_dictionary_not_empty():
     # Only run test if there is a config file, needed as otherwise travis-ci fails
     if configfile.is_file():
         import config
-        assert list_conversations(debug="True") != 0
+        assert list_conversations() != 0
