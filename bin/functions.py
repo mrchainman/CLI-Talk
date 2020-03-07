@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 # import some modules
-import requests
-import time
-import os
 from variables_and_stuff import *
 # try to import the config, else pass, means we run it for the first time
 try:
@@ -50,6 +47,7 @@ def get_conversations(debug="False"):
     # Check if the dictionary was populated by a cache file, else we create it and write it to a cache file
     if bool(dict_token_participant) == False:
         print("Creating dictionary ...")
+        # Get the number of conversations from the json file
         number_of_conversations = range(len(m_conversations["ocs"]["data"]))
         for i in number_of_conversations:
             token_i = (m_conversations["ocs"]["data"][i]["lastMessage"]["token"])
@@ -63,6 +61,7 @@ def get_conversations(debug="False"):
             except:
                 participant_i = f"Public Conversation {i}"
             dict_token_participant.update({token_i : participant_i})
+        # Write the dictionary to a json file for caching
         with open(f"{jsondir}/dictionary.json",'w') as df:
             json.dump(dict_token_participant, df)
 
@@ -104,6 +103,7 @@ def get_messages(conversation):
             json.dump(m_messages, df)
 
     print(f"{conversation}:\n")
+    # Get the number of messages from the json file
     number_of_messages = range(len(m_messages["ocs"]["data"]))
     for i in reversed(number_of_messages):
         print(m_messages["ocs"]["data"][i]["message"])
@@ -116,6 +116,7 @@ def send_msg(conversation, msg):
         if value == conversation:
             token = key
             break
+    # Send the message
     send = requests.post(f"{url}/chat/{token}",
                          headers=headers, auth=(user, password),
                          params={'message':msg})

@@ -20,6 +20,7 @@ from pathlib import Path
 configfile = Path("../bin/config.py")
 
 def test_import_config():
+    # Only run test if there is a config file, needed as otherwise travis-ci fails
     if configfile.is_file():
         import config
         assert len(url) != 0
@@ -27,11 +28,13 @@ def test_import_config():
         assert len(password) != 0
 
 def test_conversations_not_empty():
+    # Only run test if there is a config file, needed as otherwise travis-ci fails
     if configfile.is_file():
         import config
         assert get_conversations(debug="True") != 0
 
 def test_dictionary_not_empty():
+    # Only run test if there is a config file, needed as otherwise travis-ci fails
     if configfile.is_file():
         import config
         assert list_conversations(debug="True") != 0
