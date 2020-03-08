@@ -30,9 +30,13 @@ def check_config(debug="False"):
         password = input('Enter your password: ')
         # Write parameters to a file
         with open ("config.py",'a') as f:
-            f.write(f"#!/usr/bin/python3\nurl = \"{url}/ocs/v2.php/apps/spreed/api/v1\"\nuser = \"{user}\"\npassword = \"{password}\"")
+            f.write(f"#!/usr/bin/python3\n \
+                    url = \"{url}/ocs/v2.php/apps/spreed/api/v1\"\n \
+                    user = \"{user}\"\n \
+                    password = \"{password}\"")
         # TODO: Find way to import the configs without restarting
-        print("We need to restart the app now, sorry. Just rerunn it and everything will be fine :D")
+        print("We need to restart the app now, sorry. \
+              Just rerunn it and everything will be fine :D")
         if debug == "True":
             return 'Needed to create config'
         exit(0)
@@ -52,26 +56,34 @@ def get_conversations(debug="False"):
     try:
         with open(f"{jsondir}/conversations.json",'r') as lf:
             m_conversations = json.load(lf)
+    # Else we fetch the conversations and create the cache file
     except:
-        # Else we fetch the conversations and create the cache file
         print("Fetching your conversations ...")
-        r_conversations = requests.get(f"{url}/room", headers=headers, auth=(user, password))
+        r_conversations = requests.get(f"{url}/room", \
+                                       headers=headers, \
+                                       auth=(user, password))
         m_conversations = (r_conversations.json())
         with open(f"{jsondir}/conversations.json",'w') as df:
             json.dump(m_conversations, df)
 
-    # Check if the dictionary was populated by a cache file, else we create it and write it to a cache file
+    # Check if the dictionary was populated by a cache file,
+    # else we create it and write it to a cache file
     if bool(dict_token_participant) == False:
         print("Creating dictionary ...")
         # Get the number of conversations from the json file
         number_of_conversations = range(len(m_conversations["ocs"]["data"]))
         for i in number_of_conversations:
             token_i = (m_conversations["ocs"]["data"][i]["lastMessage"]["token"])
+            # TODO: Read participants from conversations.json instead of making
+            # a new request
             #TODO: need to hanlde group chats
-            r_participants = requests.get(f"{url}/room/{token_i}/participants", headers=headers, auth=(user, password))
+            r_participants = requests.get(f"{url}/room/{token_i}/participants",\
+                                          headers=headers, \
+                                          auth=(user, password))
             m_participants = (r_participants.json())
 
-            # TODO: We need to catch public conversations here, otherwise we get a "Index out of range" error, needs to be fixed.
+            # TODO: We need to catch public conversations here, otherwise we get
+            # a "Index out of range" error, needs to be fixed.
             try:
                 participant_i = (m_participants["ocs"]["data"][1]["displayName"])
             except:
@@ -125,7 +137,10 @@ def get_messages(conversation):
     # If there is no cache file, we fetch the messages and create the cache file
     except:
         print(f"Fetching new messages for {conversation}...")
-        r_messages = requests.get( f"{url}/chat/{token}", headers=headers, auth=(user, password), params=data_chat)
+        r_messages = requests.get( f"{url}/chat/{token}", \
+                                  headers=headers, \
+                                  auth=(user, password), \
+                                  params=data_chat)
         m_messages = (r_messages.json())
         with open(f"{jsondir}/{conversation}.json",'w') as df:
             json.dump(m_messages, df)
@@ -154,6 +169,16 @@ def send_msg(conversation, msg):
                          headers=headers, auth=(user, password),
                          params={'message':msg})
 
+def autocomplete(input_string, choose_from):
+    """
+    Autocomplete a string.
+
+    This functions autocompletes a given string with a list of options.
+    The parameters are input_string, which is the input to autocomplete
+    and choose_from, which is the list of options.
+    """
+    filter_input = list(filter(lambda x: x.startswith(input_string), choose_from))
+    return filter_input[0]
 def autofetch_messages():
     """
     WIP: Autofetch messages periodically
@@ -162,7 +187,10 @@ def autofetch_messages():
     """
     for key, value in dict_token_participant.items():
         print(f"Polling token {key} conversation {value}")
-        r_autofetch = requests.get( f"{url}/chat/{key}", headers=headers, auth=(user, password), params=data_chat)
+        r_autofetch = requests.get( f"{url}/chat/{key}", \
+                                   headers=headers, \
+                                   auth=(user, password), \
+                                   params=data_chat)
         m_autofetch = (r_autofetch.json())
         with open(f"{jsondir}/{value}.json",'w') as df:
             json.dump(m_autofetch, df)

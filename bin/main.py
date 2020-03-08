@@ -14,14 +14,12 @@ if __name__ == "__main__":
         # Get the list of conversations
         printed_conversations = list_conversations()
         # Get user input of conversation
-        choice = input("Please enter the name of a conversation (type 'q' to exit) : ")
+        user_input = input("Please enter the name of a conversation (type 'q' to exit) : ")
         # Check if we need to break the loop
-        if choice == "q":
+        if user_input == "q":
             print("Exiting ...")
             break
-        # This part allows for autocompletion by entering the unique starting letters of a conversation
-        filter_input = list(filter(lambda x: x.startswith(choice), printed_conversations))
-        conversation = filter_input[0]
+        conversation = autocomplete(input_string=user_input,choose_from=list_conversations())
         # Start second infinite loop
         while True:
             os.system('clear')
