@@ -16,6 +16,7 @@ I will continue working on it, every help is appreciated.
 - [x] Create directories for different files to keep things organised
 - [ ] Automatically fetch new conversations and messages periodically
 - [ ] We do alot of deleting and recreating cache files, there needs to be a more efficient way
+- [ ] Currently credentials are stored in plain text, we need to find a solution for this
 
 ## Nice to have
 - [ ] Wrap everything into a curses menu
